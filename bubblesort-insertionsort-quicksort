@@ -1,0 +1,42 @@
+def bubblesort(arr):
+    for i in range(len(arr)-1, 0, -1):
+        for j in range(i):
+            if arr[j] > arr[j+1]:
+                temp = arr[j]
+                arr[j] = arr[j+1]
+                arr[j+1] = temp
+    return arr
+
+def insertionsort(arr):
+    for i in range(1,len(arr)):
+        currentValue = arr[i]
+        index = i
+        while index > 0 and arr[index-1] > currentValue:
+            arr[index] = arr[index-1]
+            index-=1
+        arr[index] = currentValue
+    return arr
+
+def quicksort(arr):
+    less = []
+    middle = []
+    greater = []
+    if len(arr) > 1:
+        pivot = arr[0]
+        for i in arr:
+            if i < pivot:
+                less.append(i)
+            elif i == pivot:
+                middle.append(i)
+            else:
+                greater.append(i)
+        return quicksort(less) + middle + quicksort(greater)
+    else:
+        return arr
+
+arr = [9,8,7,6,5,4,3,2,1]
+
+print(bubblesort(arr))
+print(insertionsort(arr))
+print(quicksort(arr))
+        
