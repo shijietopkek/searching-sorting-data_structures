@@ -1,0 +1,73 @@
+class Node:
+    def __init__(self, data):
+        self.data = data
+        self.next, self.prev = None, None
+
+class LinkedList:
+    def __init__(self):
+        self.head = None
+        self.tail = None
+        self.length = 0
+
+    def insert(self, data):
+        new_node = Node(data)
+        self.length +=1
+        if self.head == None:
+            self.head = new_node
+            self.tail = new_node
+        elif self.head.data > data:
+            new_node.next = self.head
+            self.head.prev = new_node
+            self.head = new_node
+        else:
+            cursor = self.head
+            while cursor != None and cursor.data < data:
+                cursor = cursor.next
+            if cursor == None:
+                self.tail.next = new_node
+                new_node.prev = self.tail
+                self.tail = new_node
+
+            else:
+                cursor.prev.next = new_node
+                new_node.next = cursor
+                new_node.prev = cursor.prev
+                cursor.prev = new_node
+    def search(self, data):
+        cursor = self.head
+        while cursor.data < data and cursor != None:
+            cursor = cursor.next
+        if cursor.data == data:
+            return cursor
+        else:
+            print("Data not found")
+            return False
+    def delete(self,data):
+        if self.head.data == data:
+            self.head = self.head.next
+            self.head.prev = None
+        elif self.tail.data == data:
+            self.tail = self.tail.prev
+            self.tail.next = None
+        else:
+            cursor = self.search(data)
+            if cursor != False:
+                cursor.prev.next = cursor.next
+                cursor.next.prev = cursor.prev
+                return True
+            else:
+                return False
+    def update(self, old_data, new_data):
+        cursor = self.search(old_data)
+        if cursor != False:
+            cursor.data = new_data
+            return True
+        else:
+            return False
+    def display(self):
+        cursor = self.head
+        while cursor != None:
+            print(cursor.data, end = ' ')
+            cursor = cursor.next
+        print()
+        return true
